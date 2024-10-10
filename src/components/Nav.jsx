@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
 const Nav = () => {
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light')
+  const [isLoaded, setIsLoaded] = useState(false)
 
   // update state on toggle
   const handleToggle = e => {
@@ -13,14 +14,21 @@ const Nav = () => {
     }
   }
 
-  // set theme state in localStorage on mount & also update localStorage on state change
+  // set theme state in localStorage and add custom data-theme attribute
   useEffect(() => {
     localStorage.setItem('theme', theme)
-    const localTheme = localStorage.getItem('theme')
-
-    // add custom data-theme attribute
-    document.querySelector('html').setAttribute('data-theme', localTheme)
+    document.querySelector('html').setAttribute('data-theme', theme)
   }, [theme])
+
+  // Run setIsLoaded(true) only once on component mount
+  useEffect(() => {
+    setIsLoaded(true)
+  }, []) // Empty dependency array ensures this runs only once when the component mounts
+
+  // Don't render the component until the theme is loaded
+  if (!isLoaded) {
+    return null
+  }
 
   return (
     <div className='navbar bg-base-100 shadow-lg px-4 sm:px-8 fixed z-10'>
@@ -29,7 +37,7 @@ const Nav = () => {
           to='/'
           className='btn btn-ghost gap-0 text-secondary normal-case text-2xl'
         >
-          Byte<span className='text-primary'>Blaze</span>
+          Byte<span className='text-primary'>Surge</span>
         </Link>
       </div>
       <div className='flex-none gap-2'>
@@ -64,6 +72,7 @@ const Nav = () => {
         <label className='cursor-pointer grid place-items-center'>
           <input
             type='checkbox'
+            checked={theme === 'synthwave'}
             onChange={handleToggle}
             className='toggle theme-controller bg-base-content row-start-1 col-start-1 col-span-2'
           />

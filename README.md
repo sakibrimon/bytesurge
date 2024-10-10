@@ -1,8 +1,8 @@
-# Byteblaze
+# ByteSurge
 
 Live site:
 
-- [ByteBlaze](https://byte-blaze.netlify.app/)
+- [ByteSurge](https://byte-surge.netlify.app/)
 
 Resources:
 
