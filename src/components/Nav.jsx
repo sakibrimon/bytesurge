@@ -35,9 +35,9 @@ const Nav = () => {
       <div className='flex-1'>
         <Link
           to='/'
-          className='btn btn-ghost gap-0 text-secondary normal-case text-2xl'
+          className='btn btn-ghost gap-0 text-primary normal-case text-2xl'
         >
-          Byte<span className='text-primary'>Surge</span>
+          Byte<span className='text-secondary'>Surge</span>
         </Link>
       </div>
       <div className='flex-none gap-2'>
